@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<!--This Code made by KumaTaiso-->
+
+<html lang="en">
+<style>
+    .col-half-offset {
+        margin-left: 2.3%
+    }
+</style>
+
+<head>
+    <title>CubePuzzle</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+
+<body onLoad="update_image()">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">//
+        <a class="navbar-brand" href="index.html">Home</a>
+        <a class="navbar-brand" href="Custom.html">Custom</a>
+        <a class="navbar-brand" href="Other_App.html">Other App</a>
+    </nav>
+    <div class="container mt-5 p-3 bg-dark text-white text-center">
+        <h1>Genshin Cube Puzzle</h1>
+        <button class="btn btn-success" onmousedown="random()">Random</button>
+        <button class="btn btn-success" onmousedown="random_slove()">Slove</button>
+        <br><br>
+        <div class="row">
+            <div class="col-sm-2 col-half-offset text-center">
+                <h3>0</h3>
+                <img id="Cube_A" onmousedown="A()"
+                    img.src="https://media.discordapp.net/attachments/528215792672702464/868142817879412776/0.png" />
+
+            </div>
+            <div class="col-sm-2 col-half-offset text-center">
+                <h3>1</h3>
+                <img id="Cube_B" onmousedown="B()"
+                    img.src="https://media.discordapp.net/attachments/528215792672702464/868142817879412776/0.png" />
+
+            </div>
+            <div class="col-sm-2 col-half-offset text-center">
+                <h3>2</h3>
+                <img id="Cube_C" onmousedown="C()"
+                    img.src="https://media.discordapp.net/attachments/528215792672702464/868142817879412776/0.png" />
+
+            </div>
+            <div class="col-sm-2 col-half-offset text-center">
+                <h3>3</h3>
+                <img id="Cube_D" onmousedown="D()"
+                    img.src="https://media.discordapp.net/attachments/528215792672702464/868142817879412776/0.png" />
+
+            </div>
+            <div class="col-sm-2 col-half-offset text-center">
+                <h3>4</h3>
+                <img id="Cube_E" onmousedown="E()"
+                    img.src="https://media.discordapp.net/attachments/528215792672702464/868142817879412776/0.png" />
+            </div>
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapse2">
+            Edit
+        </button> <br>
+        <div id="collapse2" class="collapse"><br>
+            <div class="row">
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" onmousedown="C0()">0</button>
+
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" onmousedown="C1()">1</button>
+
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" onmousedown="C2()">2</button>
+
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" onmousedown="C3()">3</button>
+
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" onmousedown="C3()">4</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <h2>Solution is <span id="Solution1"></span></h2>
+        <span id="Solution2"></span>
+
+    </div>
+
+    <script>
+        var pos = [1, 2, 1, 2, 3];
+        function A() {
+            pos[0] += 1;
+            pos[2] += 1;
+            Calculate();
+            update_image();
+        }
+        function B() {
+            pos[0] += 1;
+            pos[1] += 1;
+            pos[2] += 1;
+            Calculate();
+            update_image();
+        }
+        function C() {
+            pos[0] += 1;
+            pos[2] += 1;
+            pos[4] += 1;
+            Calculate();
+            update_image();
+        }
+        function D() {
+            pos[2] += 1;
+            pos[3] += 1;
+            pos[4] += 1;
+            Calculate();
+            update_image();
+        }
+        function E() {
+            pos[2] += 1;
+            pos[4] += 1;
+            Calculate();
+            update_image();
+        }
+
+        function C0() {
+            pos[0] += 1;
+            Calculate();
+            update_image();
+        }
+        function C1() {
+            pos[1] += 1;
+            Calculate();
+            update_image();
+        }
+        function C2() {
+            pos[2] += 1;
+            Calculate();
+            update_image();
+        }
+        function C3() {
+            pos[3] += 1;
+            Calculate();
+            update_image();
+        }
+        function C4() {
+            pos[4] += 1;
+            Calculate();
+            update_image();
+        }
+        function update_image() {
+            var img = document.getElementById("Cube_A");
+            if (pos[0] == 1) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142819838152744/1.png"; }
+            if (pos[0] == 2) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142821922734080/2.png"; }
+            if (pos[0] == 3) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142823323619388/3.png"; }
+            if (pos[0] == 4) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142825097789530/4.png"; }
+            var img = document.getElementById("Cube_B");
+            if (pos[1] == 1) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142819838152744/1.png"; }
+            if (pos[1] == 2) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142821922734080/2.png"; }
+            if (pos[1] == 3) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142823323619388/3.png"; }
+            if (pos[1] == 4) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142825097789530/4.png"; }
+            var img = document.getElementById("Cube_C");
+            if (pos[2] == 1) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142819838152744/1.png"; }
+            if (pos[2] == 2) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142821922734080/2.png"; }
+            if (pos[2] == 3) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142823323619388/3.png"; }
+            if (pos[2] == 4) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142825097789530/4.png"; }
+            var img = document.getElementById("Cube_D");
+            if (pos[3] == 1) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142819838152744/1.png"; }
+            if (pos[3] == 2) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142821922734080/2.png"; }
+            if (pos[3] == 3) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142823323619388/3.png"; }
+            if (pos[3] == 4) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142825097789530/4.png"; }
+            var img = document.getElementById("Cube_E");
+            if (pos[4] == 1) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142819838152744/1.png"; }
+            if (pos[4] == 2) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142821922734080/2.png"; }
+            if (pos[4] == 3) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142823323619388/3.png"; }
+            if (pos[4] == 4) { img.src = "https://media.discordapp.net/attachments/528215792672702464/868142825097789530/4.png"; }
+            return false;
+        }
+        var correct = 0;
+        var i = 0;
+
+        function Calculate() {
+            for (i = 0; i < 5; i += 1) {
+                if (pos[i] == 5) { pos[i] = 1; }
+                if (pos[i - 1] == pos[i]) { correct += 1; }
+            }
+        }
+
+        function random_slove() {
+            document.getElementById("Solution1").innerHTML = "";
+            document.getElementById("Solution2").innerHTML = "";
+            let temp_pos = [];
+            for (i = 0; i < 5; i++) {
+                temp_pos[i] = pos[i];
+            }
+            var use = [];
+            var use_count = 0;
+            var try_hard = 0;
+            while (1) {
+                use[use_count] = Math.floor(Math.random() * 5);;
+                if (use[use_count] == 0) {
+                    pos[0] += 1;
+                    pos[2] += 1;
+                }
+                if (use[use_count] == 1) {
+                    pos[0] += 1;
+                    pos[1] += 1;
+                    pos[2] += 1;
+                }
+                if (use[use_count] == 2) {
+                    pos[0] += 1;
+                    pos[2] += 1;
+                    pos[4] += 1;
+                }
+                if (use[use_count] == 3) {
+                    pos[2] += 1;
+                    pos[3] += 1;
+                    pos[4] += 1;
+                }
+                if (use[use_count] == 4) {
+                    pos[2] += 1;
+                    pos[4] += 1;
+                }
+
+                use_count += 1
+                if (use_count > 6 && try_hard < 100000) {
+                    for (i = 0; i < 5; i++) {
+                        pos[i] = temp_pos[i];
+                    }
+                    use_count = 0;
+                    try_hard++;
+                }
+                if (use_count > 7 && try_hard >= 100000) {
+                    for (i = 0; i < 5; i++) {
+                        pos[i] = temp_pos[i];
+                    }
+                    use_count = 0;
+                }
+
+                correc = 0;
+                for (i = 0; i < 5; i++) {
+                    if (pos[i] == 5) { pos[i] = 1; }
+                    if (pos[i - 1] == pos[i]) { correc += 1; }
+                }
+
+                if (correc == 4) {
+                    use = use.slice(0, use_count);
+                    use.sort();
+                    for (i = 0; i < use_count; i++) {
+                        console.log(use[i]);
+                        document.getElementById("Solution1").innerHTML += use[i];
+                    }
+
+                    for (i = 0; i < 5; i++) {
+                        pos[i] = temp_pos[i];
+                    }
+                    update_image();
+                    break;
+                }
+            }
+        }
+
+        function random() {
+            for (i = 0; i < 5; i++) {
+                pos[i] = Math.floor(Math.random() * 4);
+            }
+            update_image();
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

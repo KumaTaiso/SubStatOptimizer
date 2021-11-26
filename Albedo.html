@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+
+<head>
+  <title>SubStat Albedo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">//
+    <a class="navbar-brand" href="index.html">Home</a>
+    <a class="navbar-brand" href="Custom.html">Custom</a>
+    <a class="navbar-brand" href="Other_App.html">Other App</a>
+</nav>
+
+  <div class="container-fluid bg-dark text-white text-center">
+    <h1>Albedo</h1>
+  </div>
+
+  <div class="container mt-5">
+
+    <div class="row">
+
+      <div class="col-sm-4">
+        <h4>Main Stat</h4>
+        <label for="sub_value" class="form-label">Sub Stat Value</label>
+        <input class="form-control" type="number" id="sub_value" value="25">
+        <label for="min_ER" class="form-label">Min Energy recharge</label>
+        <input class="form-control" type="number" id="min_ER" value="0">
+        <label for="Weapon" class="form-label">Weapon</label>
+        <select id="Weapon" class="form-select" aria-label="Default select example">
+          <option value="1">Cinnabar Spindle</option>
+          <option value="2">Harbinger of Dawn</option>
+
+          <option value="99">Manual Add</option>
+
+        </select>
+        <label for="addition_base_Attack" class="form-label">Base Attack Weapon (For Manual Add Weapon)</label>
+        <input class="form-control" type="number" id="addition_base_Attack" value="0">
+
+
+      </div>
+      <div class="col-sm-4">
+        <h4>Artifact</h4>
+        <label for="Sands" class="form-label">Sands of Eon</label>
+        <select id="Sands" class="form-select" aria-label="Default select example">
+          <option value="2">DEF</option>
+          <option value="4">EM</option>
+          <option value="1">HP</option>
+          <option value="3">ATK</option>
+          <option value="5">ER</option>
+        </select>
+        <label for="Goblet" class="form-label">Goblet of Eonothem</label>
+        <select id="Goblet" class="form-select" aria-label="Default select example">
+          <option value="5">Elemental Damage</option>
+          <option value="1">HP</option>
+          <option value="2">DEF</option>
+          <option value="3">ATK</option>
+          <option value="4">EM</option>
+        </select>
+        <label for="Circlet" class="form-label">Circlet of Logos</label>
+        <select id="Circlet" class="form-select" aria-label="Default select example">
+          <option value="5">Critical Rate</option>
+          <option value="1">HP</option>
+          <option value="2">DEF</option>
+          <option value="3">ATK</option>
+          <option value="4">EM</option>
+          <option value="6">Critical Damage</option>
+          <option value="7">Healing Bonus</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#demo">Addition</button>
+        <div id="demo" class="collapse">
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="addition_Flat_Attack" class="form-label">Flat Attack</label>
+              <input class="form-control" type="number" id="addition_Flat_Attack" value="0">
+              <label for="addition_Flat_HP" class="form-label">Flat HP</label>
+              <input class="form-control" type="number" id="addition_Flat_HP" value="0">
+              <label for="addition_Flat_DEF" class="form-label">Flat DEF</label>
+              <input class="form-control" type="number" id="addition_Flat_DEF" value="0">
+              <label for="addition_Crirate" class="form-label">Critical rate</label>
+              <input class="form-control" type="number" id="addition_Crirate" value="0">
+              <label for="addition_ER" class="form-label">Energy recharge</label>
+              <input class="form-control" type="number" id="addition_ER" value="0">
+              <label for="addition_Additive" class="form-label">DMG Bonus</label>
+              <input class="form-control" type="number" id="addition_Additive" value="24">
+              <label for="addition_Reaction" class="form-label">Reaction Bonus</label>
+              <input class="form-control" type="number" id="addition_Reaction" value="0">
+            </div>
+            <div class="col-sm-6">
+              <label for="addition_ATK" class="form-label">ATK%</label>
+              <input class="form-control" type="number" id="addition_ATK" value="0">
+              <label for="addition_HP" class="form-label">HP%</label>
+              <input class="form-control" type="number" id="addition_HP" value="0">
+              <label for="addition_DEF" class="form-label">DEF%</label>
+              <input class="form-control" type="number" id="addition_DEF" value="54">
+              <label for="addition_Cridmg" class="form-label">Critical Damage</label>
+              <input class="form-control" type="number" id="addition_Cridmg" value="0">
+              <label for="addition_EM" class="form-label">EM</label>
+              <input class="form-control" type="number" id="addition_EM" value="0">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <button class="btn btn-success" onmousedown="do_opti()">Calculate</button>
+
+
+    <h4>Result</h4>
+    <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapse2">How it
+      Calculate</button> <br>
+    <div id="collapse2" class="collapse">
+      Artifact Set: None <br>
+      Rotation: 10E DoT + Q <br>
+      total_dmg = ((total_DEF * 2.2712) * (1 + (total_Cridmg * total_Crirate / 10000))
+      * (1 + (total_EL + addition_Additive) / 100))) * 10
+      + ((total_Atk * 6.2424) * (1 + (total_Cridmg * total_Crirate / 10000))
+      * (1 + (total_EL + addition_Additive) / 100)));<br><br>
+    </div>
+    Possible Damage:
+    <span id="max_total_dmg"></span> <br>
+
+    <h4>Aim for</h4>
+    Number of Roll for:
+    ATK% <span id="max_roll_Atk"></span>:
+    DEF% <span id="max_roll_DEF"></span>:
+    ER% <span id="max_roll_ER"></span>:
+    CriRate <span id="max_roll_Crirate"></span>:
+    CriDMG <span id="max_roll_Cridmg"></span>:
+    HP% <span id="max_roll_HP"></span>:
+    EM <span id="max_roll_EM"></span> <br>
+
+    HP:<span id="max_stat_HP"></span> <br>
+    ATK:<span id="max_stat_ATK"></span> <br>
+    DEF:<span id="max_stat_DEF"></span> <br>
+    ER%:<span id="max_stat_ER"></span>% <br>
+    Critical rate:<span id="max_stat_Crirate"></span>% <br>
+    Critical Damage:<span id="max_stat_CriDmg"></span>% <br>
+    EM:<span id="max_stat_EM"></span> <br>
+
+
+  </div>
+
+  <script>
+
+    function do_opti() {
+      var sub_value = parseFloat(document.getElementById("sub_value").value);
+      var min_ER = parseFloat(document.getElementById("min_ER").value);
+      var Weapon = parseFloat(document.getElementById("Weapon").value);
+      var addition_base_Attack = parseFloat(document.getElementById("addition_base_Attack").value);
+
+      var Sands = parseFloat(document.getElementById("Sands").value);
+      var Goblet = parseFloat(document.getElementById("Goblet").value);
+      var Circlet = parseFloat(document.getElementById("Circlet").value);
+
+      var addition_Flat_Attack = parseFloat(document.getElementById("addition_Flat_Attack").value);
+      var addition_Flat_HP = parseFloat(document.getElementById("addition_Flat_HP").value);
+      var addition_Flat_DEF = parseFloat(document.getElementById("addition_Flat_DEF").value);
+      var addition_Crirate = parseFloat(document.getElementById("addition_Crirate").value);
+      var addition_ER = parseFloat(document.getElementById("addition_ER").value);
+      var addition_Additive = parseFloat(document.getElementById("addition_Additive").value);
+      var addition_Reaction = parseFloat(document.getElementById("addition_Reaction").value);
+
+      var addition_ATK = parseFloat(document.getElementById("addition_ATK").value);
+      var addition_HP = parseFloat(document.getElementById("addition_HP").value);
+      var addition_DEF = parseFloat(document.getElementById("addition_DEF").value);
+      var addition_Cridmg = parseFloat(document.getElementById("addition_Cridmg").value);
+      var addition_EM = parseFloat(document.getElementById("addition_EM").value);
+      var addition_Mulplicative = 0;
+
+      var HP_ati = 0;
+      var DEF_ati = 0
+      var Atk_ati = 0;
+      var ER_ati = 0;
+      var EM_ati = 0;
+      var EL_ati = 0;
+      var Crirate_ati = 0;
+      var Cridmg_ati = 0;
+      var Heal_ati = 0;
+
+      if (Sands == 1) { HP_ati += 46.6; }
+      if (Goblet == 1) { HP_ati += 46.6; }
+      if (Circlet == 1) { HP_ati += 46.6; }
+      if (Sands == 2) { DEF_ati += 58.3; }
+      if (Goblet == 2) { DEF_ati += 58.3; }
+      if (Circlet == 2) { DEF_ati += 58.3; }
+      if (Sands == 3) { Atk_ati += 46.6; }
+      if (Goblet == 3) { Atk_ati += 46.6; }
+      if (Circlet == 3) { Atk_ati += 46.6; }
+      if (Sands == 4) { EM_ati += 187; }
+      if (Goblet == 4) { EM_ati += 187; }
+      if (Circlet == 4) { EM_ati += 187; }
+      if (Sands == 5) { ER_ati += 51.8; }
+      if (Goblet == 5) { EL_ati += 46.6; }
+      if (Circlet == 5) { Crirate_ati += 31.1; }
+      if (Circlet == 6) { Cridmg_ati += 62.2; }
+      if (Circlet == 7) { Heal_ati += 35.9; }
+
+      var total_dmg = 0;
+
+      var roll_Atk = 0;
+      var roll_ER = 0;
+      var roll_Crirate = 0;
+      var roll_Cridmg = 0;
+      var roll_EM = 0;
+      var roll_HP = 0;
+      var roll_DEF = 0;
+
+      var total_HP = 0;
+      var total_DEF = 0;
+      var total_Atk = 0;
+      var total_EM = 0;
+      var total_ER = 0;
+      var total_EL = 0;
+      var total_Atk = 0;
+
+
+      var max_total_dmg = 0;
+
+      var max_roll_Atk;
+      var max_roll_ER;
+      var max_roll_Crirate;
+      var max_roll_Cridmg;
+      var max_roll_EM;
+      var max_roll_HP;
+      var max_roll_DEF;
+
+      var max_stat_HP;
+      var max_stat_DEF;
+      var max_stat_Atk;
+      var max_stat_ER;
+      var max_stat_Crirate;
+      var max_stat_CriDmg;
+      var max_stat_EM;
+
+      var Atk;
+      var ER;
+      var Crirate;
+      var Cridmg;
+      var EM;
+      var HP;
+      var DEF;
+
+      var base_Atk = 251 + addition_base_Attack;
+      var base_HP = 13226;
+      var base_DEF = 876;
+      addition_Additive += 28.8;
+
+      //Cinnabar spindle
+      if (Weapon == 1) {
+        base_Atk += 454;
+        addition_DEF += 69;
+      }
+      //Harbinger of Dawn
+      if (Weapon == 2) {
+        base_Atk += 401;
+        addition_Cridmg += 46.9;
+        addition_Crirate += 28;
+      }
+
+
+      //Optimist
+      for (roll_Atk = 0; roll_Atk < sub_value + 1; roll_Atk++) {
+        Atk = roll_Atk * 5.8 + Atk_ati + addition_ATK;
+        for (roll_ER = 0; roll_ER < sub_value - roll_Atk + 1; roll_ER++) {
+          ER = roll_ER * 6.5 + ER_ati + addition_ER + 100;
+          for (roll_Crirate = 0; roll_Crirate < sub_value - roll_Atk - roll_ER + 1; roll_Crirate++) {
+            Crirate = roll_Crirate * 3.9 + Crirate_ati + addition_Crirate + 5;
+            for (roll_Cridmg = 0; roll_Cridmg < sub_value - roll_Atk - roll_ER - roll_Crirate + 1; roll_Cridmg++) {
+              Cridmg = roll_Cridmg * 7.8 + Cridmg_ati + addition_Cridmg + 50;
+              for (roll_EM = 0; roll_EM < sub_value - roll_Atk - roll_ER - roll_Crirate - roll_Cridmg + 1; roll_EM++) {
+                EM = roll_EM * 23.3 + EM_ati + addition_EM;
+                for (roll_HP = 0; roll_HP < sub_value - roll_Atk - roll_ER - roll_Crirate - roll_Cridmg - roll_EM + 1; roll_HP++) {
+                  HP = roll_HP * 5.8 + HP_ati + addition_HP;
+                  for (roll_DEF = 0; roll_DEF < sub_value - roll_Atk - roll_ER - roll_Crirate - roll_Cridmg - roll_EM + 1; roll_DEF++) {
+                    DEF = roll_DEF * 7.3 + DEF_ati + addition_DEF;
+
+                    total_EL = EL_ati;
+                    total_ER = ER;
+                    total_Crirate = Crirate;
+                    total_Cridmg = Cridmg;
+                    total_EM = EM;
+                    if (Crirate > 100) {
+                      Crirate = 100;
+                    }
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    total_DEF = (base_DEF * (1 + (DEF / 100))) + addition_Flat_DEF;
+                    total_HP = (base_HP * (1 + (HP / 100))) + addition_Flat_HP + 4780;
+                    total_Atk = (base_Atk * (1 + (Atk / 100))) + addition_Flat_Attack + 311;
+
+                    if (Weapon == 1) {
+                      total_dmg = ((total_DEF * 2.2712 + total_DEF * 0.8) * (1 + (total_Cridmg * total_Crirate / 10000))
+                        * (1 + (total_EL + addition_Additive) / 100) * (1 + (addition_Mulplicative / 100))) * 10
+                        + ((total_Atk * 6.2424) * (1 + (total_Cridmg * total_Crirate / 10000))
+                          * (1 + (total_EL + addition_Additive) / 100) * (1 + (addition_Mulplicative / 100)))
+                    }
+                    else {
+                      total_dmg = ((total_DEF * 2.2712) * (1 + (total_Cridmg * total_Crirate / 10000))
+                        * (1 + (total_EL + addition_Additive) / 100) * (1 + (addition_Mulplicative / 100))) * 10
+                        + ((total_Atk * 6.2424) * (1 + (total_Cridmg * total_Crirate / 10000))
+                          * (1 + (total_EL + addition_Additive) / 100) * (1 + (addition_Mulplicative / 100)))
+                    }
+
+
+
+
+
+
+
+
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    if (ER > min_ER && total_dmg > max_total_dmg) {
+                      max_total_dmg = total_dmg;
+
+                      max_roll_HP = roll_HP;
+                      max_roll_Atk = roll_Atk;
+                      max_roll_ER = roll_ER;
+                      max_roll_Crirate = roll_Crirate;
+                      max_roll_Cridmg = roll_Cridmg;
+                      max_roll_EM = roll_EM;
+                      max_roll_DEF = roll_DEF;
+
+                      max_stat_HP = total_HP;
+                      max_stat_ATK = total_Atk;
+                      max_stat_DEF = total_DEF;
+                      max_stat_ER = total_ER;
+                      max_stat_Crirate = total_Crirate;
+                      max_stat_CriDmg = total_Cridmg;
+                      max_stat_EM = total_EM;
+                      //}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      document.getElementById("max_total_dmg").innerHTML = max_total_dmg.toFixed(0);;
+
+      document.getElementById("max_roll_Atk").innerHTML = max_roll_Atk;
+      document.getElementById("max_roll_ER").innerHTML = max_roll_ER;
+      document.getElementById("max_roll_DEF").innerHTML = max_roll_DEF;
+      document.getElementById("max_roll_Crirate").innerHTML = max_roll_Crirate;
+      document.getElementById("max_roll_Cridmg").innerHTML = max_roll_Cridmg;
+      document.getElementById("max_roll_EM").innerHTML = max_roll_EM;
+      document.getElementById("max_roll_HP").innerHTML = max_roll_HP;
+
+
+      document.getElementById("max_stat_HP").innerHTML = max_stat_HP.toFixed(0);
+      document.getElementById("max_stat_ATK").innerHTML = max_stat_ATK.toFixed(0);
+      document.getElementById("max_stat_DEF").innerHTML = max_stat_DEF.toFixed(0);
+      document.getElementById("max_stat_EM").innerHTML = max_stat_EM.toFixed(0);
+      document.getElementById("max_stat_ER").innerHTML = max_stat_ER.toFixed(1);
+      document.getElementById("max_stat_Crirate").innerHTML = max_stat_Crirate.toFixed(1);
+      document.getElementById("max_stat_CriDmg").innerHTML = max_stat_CriDmg.toFixed(1);
+    }
+
+  </script>
+
+</body>
+
+</html>
