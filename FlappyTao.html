@@ -29,11 +29,7 @@
 
     <body onload="startGame()">
         <div id="myList1">
-            <nav class="navbar navbar-expand-sm navbar-dark bg-dark">//
-                <a class="navbar-brand" href="index.html">Home</a>
-                <a class="navbar-brand" href="Custom.html">Custom</a>
-                <a class="navbar-brand" href="Other_App.html">Other App</a>
-            </nav>
+            <script src="navbar.js"></script>
         </div>
         <div class="container-fluid p-3 bg-dark text-white text-center">
 
@@ -183,7 +179,7 @@
                     if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
                         crash = false;
                     }
-                    if((mytop < rockCeiling+1) || (mybottom > rockbottom-1)){
+                    if ((mytop < rockCeiling + 1) || (mybottom > rockbottom - 1)) {
                         crash = true;
                     }
                     return crash;
